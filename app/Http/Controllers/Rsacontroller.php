@@ -26,25 +26,10 @@ class Rsacontroller extends Controller
         $KeyPairModel->private_key = $privateKey->getKey();
         $KeyPairModel->public_key = $publicKey->getKey();
         $KeyPairModel->save();
-        $randomNumber = rand(1, 1000);
-        return view('welcome', ['message' => "Test the newly created key {$request->description}({$randomNumber}): " . EasyRSA::encrypt("$randomNumber", $publicKey)]);
 
-        // var_dump($privateKey->getKey());
-        // echo "<br><br><br><br>";
-        // var_dump($publicKey->getKey());
+        $request->session()->put('message', EasyRSA::encrypt("You have successfully decrypted the message!", $publicKey));
+        return redirect()->route('add_key_meta_data');
 
-        // $message = "test";
-
-        // $ciphertext = EasyRSA::encrypt($message, $publicKey);
-
-        // $plaintext = EasyRSA::decrypt($ciphertext, $privateKey);
-
-        // echo "<br><br><br><br><br>";
-
-        // echo $ciphertext;
-
-        // echo "<br><br><br><br>";
-
-        // echo $plaintext;
+        //return view('welcome', ['message' => "Test the newly created key {$request->description}({$randomNumber}): " . EasyRSA::encrypt("$randomNumber", $publicKey)]);
     }
 }

@@ -10,9 +10,9 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-@isset($plainText)
+@if(Session::has('plainText'))
 <div class="alert alert-success">
-    <pre>{{$plainText}}</pre>
+    <pre>{{Session::pull('plainText')}}</pre>
 </div>
 @endif
 <hr>
@@ -25,10 +25,10 @@
 </form>
 
 <script>
-var textAreas = document.getElementsByTagName('textarea');
+    var textAreas = document.getElementsByTagName('textarea');
 
-Array.prototype.forEach.call(textAreas, function(elem) {
-    elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
-});
+    Array.prototype.forEach.call(textAreas, function(elem) {
+        elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
+    });
 </script>
 @endsection
