@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use ParagonIE\EasyRSA\EasyRSA;
 use App\KeyPair;
-use Illuminate\Support\Facades\Redirect;
 
 class Rsacontroller extends Controller
 {
@@ -31,5 +30,21 @@ class Rsacontroller extends Controller
         return redirect()->route('add_key_meta_data');
 
         //return view('welcome', ['message' => "Test the newly created key {$request->description}({$randomNumber}): " . EasyRSA::encrypt("$randomNumber", $publicKey)]);
+    }
+
+    public function deleteKey($keyId){
+        $KeyPair = KeyPair::findOrFail($keyId);
+        $KeyPair->delete();
+        return redirect()->route('select_key');
+    }
+
+    public function downloadPrivateKey($keyId){
+        $KeyPair = KeyPair::findOrFail($keyId);
+        return response()->attachment($KeyPair->private_key, "id_rsa");
+    }
+
+    public function downloadPublicKey($keyId){
+        $KeyPair = KeyPair::findOrFail($keyId);
+        return response()->attachment($KeyPair->public_key, "id_rsa.pub");
     }
 }

@@ -9,7 +9,7 @@
 
         <div class="links">
             <a href="{{route('add_key_meta_data')}}">Generate a new keypair</a>
-            <a href="{{route('select_key')}}">Decrypt a message using an existing keypair</a>
+            <a href="{{route('select_key')}}">List public keys</a>
         </div>
     </div>
 </div>
