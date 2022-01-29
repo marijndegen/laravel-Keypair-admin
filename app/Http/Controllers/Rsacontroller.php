@@ -16,6 +16,10 @@ class Rsacontroller extends Controller
 
     public function createKeyPairAction(Request $request)
     {
+        $request->validate([
+            'description' => 'required|unique:key_pairs|min:3|max:255',
+        ]);
+
         ini_set('max_execution_time', 300); // Generating a key can take a while
         $keyPair = \ParagonIE\EasyRSA\KeyPair::generateKeyPair(6144);
 

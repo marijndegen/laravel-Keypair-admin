@@ -9,7 +9,10 @@
             <form method="post" action="{{route('rsa/create_key_pair_action')}}">
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" name="description" placeholder="Description">
+                    @error('description')
+                    <div class="alert alert-danger">{{ trans($message) }}</div>
+                    @enderror
+                    <input type="text" class="form-control @error('description') is-invalid @enderror"" name=" description" placeholder="Description">
                 </div>
                 <button type="submit" class="btn btn-primary">Generate key</button>
             </form>
