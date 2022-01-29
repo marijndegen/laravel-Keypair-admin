@@ -1,13 +1,11 @@
 # Laravel keypair admin
 
 ### TODO
-Ecnryptie link maken vanaf listcontacts page
+2. bij DELETE ACTIONS van get een delete action maken
 
-bij DELETE ACTIONS van get een delete action maken
+3. validatie in backend toevoegen.
 
-validatie in backend toevoegen.
-
-move encryption and decryption logic to model.
+4. move encryption and decryption logic to model.
 ```
         $keyPair = KeyPair::find($keyPairId);
         $privateKey = new PrivateKey($keyPair->private_key);
@@ -16,6 +14,9 @@ move encryption and decryption logic to model.
         return redirect()->route('contact/decrypt_page', ['keyPairId' => $keyPairId]);
 ```
 
+foutafhandeling bij error met encrypten.
+
+--1. grote van text veranderen.
 
 ## Terms
 ### You have:

@@ -3,9 +3,7 @@
 @section('content')
 <div class="flex-center position-ref full-height">
     <div class="content">
-        <div class="title m-b-md">
-            Generating a 6144 bit RSA key
-        </div>
+        <h1>Generating a 6144 bit RSA key</h1>
 
         <div class="links">
             <form method="post" action="{{route('rsa/create_key_pair_action')}}">
@@ -16,24 +14,35 @@
                 <button type="submit" class="btn btn-primary">Generate key</button>
             </form>
             @if(Session::has('message'))
-            <div class="alert alert-success">
-                <input type="text" class="form-control" value="{{Session::pull('message')}}" id="myInput">
-                <button onclick="copyText()">Copy text</button>
-                <script>
-                    function copyText() {
-                        /* Get the text field */
-                        var copyText = document.getElementById("myInput");
-
-                        /* Select the text field */
-                        copyText.select();
-
-                        /* Copy the text inside the text field */
-                        document.execCommand("copy");
-                    }
-                </script>
+            <div id="messageFrame" class="alert alert-success">
+                <h3>Encrypted message:</h3>
+                <input type="text" class="form-control" value="{{Session::pull('message')}}" id="messageInput">
+                <button class="btn btn-success" onclick="copyText()">Copy message</button>
             </div>
             @endif
         </div>
     </div>
 </div>
+
+<script>
+    let copied = false;
+
+    function copyText() {
+        const copyText = document.getElementById("messageInput");
+        copyText.select();
+        document.execCommand("copy");
+
+        if (!copied) {
+            const textNode = document.createTextNode("Message copied!");
+            const paragraph = document.createElement("p");
+            paragraph.appendChild(textNode);
+
+            const messageFrame = document.getElementById("messageFrame");
+            messageFrame.appendChild(paragraph);
+
+            copied = true;
+        }
+
+    }
+</script>
 @endsection

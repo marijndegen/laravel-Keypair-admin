@@ -4,9 +4,9 @@
 <div class="flex-center position-ref full-height">
     <div class="content">
         <div class="title m-b-md">
-            Keypair admin
-        </div>
 
+        </div>
+        <h1>Keypair admin</h1>
         <div class="links">
             <a href="{{route('rsa/create_key_pair_page')}}">Create a new keypair</a>
             <a href="{{route('contact/list_key_pair_page')}}">List key pairs (decrypt)</a>

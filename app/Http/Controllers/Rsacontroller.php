@@ -28,15 +28,19 @@ class Rsacontroller extends Controller
         $KeyPairModel->public_key = $publicKey->getKey();
         $KeyPairModel->save();
 
-        $request->session()->put('message', EasyRSA::encrypt("You have successfully decrypted the message!", $publicKey));
+        $request->session()->put('message', EasyRSA::encrypt("You have successfully decrypted the first test message of the private key {$request->description}!", $publicKey));
         return redirect()->route('rsa/create_key_pair_page');
     }
 
-    public function deleteKey($keyPairId)
+    public function deleteKeyPair($keyPairId)
     {
-        $KeyPair = KeyPair::findOrFail($keyPairId);
-        $KeyPair->delete();
-        return redirect()->route('contact/list_key_pair_page');
+        try {
+            $KeyPair = KeyPair::findOrFail($keyPairId);
+            $KeyPair->delete();
+            return response()->json(['success' => 'success'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => "Invalid, we couldn't find any KeyPair with the ID {$keyPairId}"], 404);
+        }
     }
 
     public function downloadPrivateKeyFromKeyPair($keyPairId)
