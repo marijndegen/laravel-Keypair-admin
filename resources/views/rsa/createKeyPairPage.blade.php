@@ -7,10 +7,8 @@
             Generating a 6144 bit RSA key
         </div>
 
-
-
         <div class="links">
-            <form method="post" action="{{route('new_key')}}">
+            <form method="post" action="{{route('create_key_pair_action')}}">
                 @csrf
                 <div class="form-group">
                     <input type="text" class="form-control" name="description" placeholder="Description">
@@ -20,9 +18,9 @@
             @if(Session::has('message'))
             <div class="alert alert-success">
                 <input type="text" class="form-control" value="{{Session::pull('message')}}" id="myInput">
-                <button onclick="myFunction()">Copy text</button>
+                <button onclick="copyText()">Copy text</button>
                 <script>
-                    function myFunction() {
+                    function copyText() {
                         /* Get the text field */
                         var copyText = document.getElementById("myInput");
 

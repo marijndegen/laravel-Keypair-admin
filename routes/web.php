@@ -15,16 +15,35 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-//Generate a new key and attach metadata to it.
-Route::get('/add_key_meta_data', 'Rsacontroller@addKeyMetaData')->name('add_key_meta_data');
-Route::post('/new_key', 'Rsacontroller@generateKeyPairAndStore')->name('new_key');
+// Generate a new key pair
+Route::get('/rsa/create_key_pair_page', 'Rsacontroller@createKeyPairPage')->name('create_key_pair_page');
+Route::post('/rsa/create_key_pair_action', 'Rsacontroller@createKeyPairAction')->name('create_key_pair_action');
 
-Route::get('/key/{keyId}/downloadPrivateKey', 'Rsacontroller@downloadPrivateKey')->name('downloadPrivateKey');
-Route::get('/key/{keyId}/downloadPublicKey', 'Rsacontroller@downloadPublicKey')->name('downloadPublicKey');
+// Download keys
+Route::get('/rsa/downloadPrivateKey/{keyPairId}', 'Rsacontroller@downloadPrivateKeyFromKeyPair')->name('downloadPrivateKey');
+Route::get('/rsa/downloadPublicKey/{keyPairId}', 'Rsacontroller@downloadPublicKeyFromKeyPair')->name('downloadPublicKey');
+Route::get('/contact/downloadPublicKey/{contactId}', 'Rsacontroller@downloadPublicKeyFromContact')->name('contact/downloadPublicKey');
 
-//Decrypt messages
-Route::get('/select_key', 'MessageController@getkeys')->name('select_key');
-Route::get('/selected_key/{keyId}', 'MessageController@enterEncrypted')->name('enter_encrypted');
-Route::get('/selected_key/{keyId}/delete', 'Rsacontroller@deleteKey')->name('deleteKey');
-Route::post('/decrypt_message/encryptedSingleFile/{keyId}', 'MessageController@encryptedSingleFile')->name('encrypted_single_file');
-// Route::post('/decrypt_message/encryptedJsonFile/{keyId}', 'MessageController@encryptedJsonFile')->name('encrypted_json_file');
+// Decrypt messages
+Route::get('/key_pair/list_key_pair_page', 'MessageController@listKeyPairPage')->name('key_pair/list_key_pair_page');
+Route::get('/key_pair/decrypt_page/{keyPairId}', 'MessageController@decryptPage')->name('key_pair/decrypt_page');
+Route::post('/key_pair/decrypt_action/{keyPairId}', 'MessageController@decryptAction')->name('key_pair/decrypt_action');
+Route::get('/key_pair/delete/{keyPairId}', 'Rsacontroller@deleteKey')->name('key_pair/delete');
+
+// Add a contact (public key)
+Route::get('/public_key/add_public_key_page', 'RsaController@addPublicKeyPage')->name('public_key/add_public_key_page');
+Route::post('/public_key/add_public_key_action', 'RsaController@addPublicKeyAction')->name('public_key/add_public_key_action');
+
+//
+Route::get('/public_key/list_public_key_page', 'MessageController@listPublicKeyPage')->name('public_key/list_public_key_page');
+Route::get('/public_key/encrypt_action/{publicKeyId}', 'MessageController@')->name('public_key/enc');
+Route::get('/public_key/delete/{keyPairId}', 'MessageController@')->name('public_key/list_contact_page');
+
+
+Route::get('/public_key/encrypt', 'MessageController@TEST')->name('TEST');
+
+// Route::get('/public_key/list_public_key_page', 'MessageController@listPublicKeyPairPage')->name('public_key/list_public_key_page');
+// Route::get('/public_key/encrypt_page/')
+
+
+// Route::post('/decrypt_message/encryptedJsonFile/{keyPairId}', 'MessageController@encryptedJsonFile')->name('encrypted_json_file');
