@@ -16,34 +16,29 @@ Route::get('/', function () {
 })->name('welcome');
 
 // Generate a new key pair
-Route::get('/rsa/create_key_pair_page', 'Rsacontroller@createKeyPairPage')->name('create_key_pair_page');
-Route::post('/rsa/create_key_pair_action', 'Rsacontroller@createKeyPairAction')->name('create_key_pair_action');
+Route::get('/rsa/create_key_pair_page', 'RSAController@createKeyPairPage')->name('rsa/create_key_pair_page');
+Route::post('/rsa/create_key_pair_action', 'RSAController@createKeyPairAction')->name('rsa/create_key_pair_action');
 
-// Download keys
-Route::get('/rsa/downloadPrivateKey/{keyPairId}', 'Rsacontroller@downloadPrivateKeyFromKeyPair')->name('downloadPrivateKey');
-Route::get('/rsa/downloadPublicKey/{keyPairId}', 'Rsacontroller@downloadPublicKeyFromKeyPair')->name('downloadPublicKey');
-Route::get('/contact/downloadPublicKey/{contactId}', 'Rsacontroller@downloadPublicKeyFromContact')->name('contact/downloadPublicKey');
+// Deleting a key pair
+Route::get('/rsa/key_pair/delete/{keyPairId}', 'RSAController@deleteKey')->name('rsa/key_pair/delete');
+
+// Download own keys
+Route::get('/rsa/downloadPrivateKey/{keyPairId}', 'RSAController@downloadPrivateKeyFromKeyPair')->name('downloadPrivateKey');
+Route::get('/rsa/downloadPublicKey/{keyPairId}', 'RSAController@downloadPublicKeyFromKeyPair')->name('downloadPublicKey');
+
+// Download contact public keys
+Route::get('/contact/downloadPublicKey/{contactId}', 'RSAController@downloadPublicKeyFromContact')->name('contact/downloadPublicKey');
 
 // Decrypt messages
-Route::get('/key_pair/list_key_pair_page', 'MessageController@listKeyPairPage')->name('key_pair/list_key_pair_page');
-Route::get('/key_pair/decrypt_page/{keyPairId}', 'MessageController@decryptPage')->name('key_pair/decrypt_page');
-Route::post('/key_pair/decrypt_action/{keyPairId}', 'MessageController@decryptAction')->name('key_pair/decrypt_action');
-Route::get('/key_pair/delete/{keyPairId}', 'Rsacontroller@deleteKey')->name('key_pair/delete');
+Route::get('/contact/list_key_pair_page', 'MessageController@listKeyPairPage')->name('contact/list_key_pair_page');
+Route::get('/contact/decrypt_page/{keyPairId}', 'MessageController@decryptPage')->name('contact/decrypt_page');
+Route::post('/contact/decrypt_action/{keyPairId}', 'MessageController@decryptAction')->name('contact/decrypt_action');
 
 // Add a contact (public key)
-Route::get('/public_key/add_public_key_page', 'RsaController@addPublicKeyPage')->name('public_key/add_public_key_page');
-Route::post('/public_key/add_public_key_action', 'RsaController@addPublicKeyAction')->name('public_key/add_public_key_action');
+Route::get('/contact/add_contact_page', 'MessageController@addContactPage')->name('contact/add_contact_page');
+Route::post('/contact/add_contact_action', 'MessageController@addContactAction')->name('contact/add_contact_action');
 
-//
-Route::get('/public_key/list_public_key_page', 'MessageController@listPublicKeyPage')->name('public_key/list_public_key_page');
-Route::get('/public_key/encrypt_action/{publicKeyId}', 'MessageController@')->name('public_key/enc');
-Route::get('/public_key/delete/{keyPairId}', 'MessageController@')->name('public_key/list_contact_page');
-
-
-Route::get('/public_key/encrypt', 'MessageController@TEST')->name('TEST');
-
-// Route::get('/public_key/list_public_key_page', 'MessageController@listPublicKeyPairPage')->name('public_key/list_public_key_page');
-// Route::get('/public_key/encrypt_page/')
-
-
-// Route::post('/decrypt_message/encryptedJsonFile/{keyPairId}', 'MessageController@encryptedJsonFile')->name('encrypted_json_file');
+// Encrpyt messages
+Route::get('/contact/list_contact_page', 'MessageController@listContactPage')->name('contact/list_contact_page');
+Route::get('/contact/encrypt_page/{contactId}', 'MessageController@encryptPage')->name('contact/encypt_page');
+Route::post('/contact/encrypt_action/{contactId}', 'MessageController@encryptAction')->name('contact/encrypt_action');

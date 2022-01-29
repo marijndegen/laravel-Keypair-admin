@@ -14,32 +14,60 @@ class MessageController extends Controller
     public function listKeyPairPage()
     {
         $keyPairs = KeyPair::all();
-        return view('decrypt.listKeyPairPage', ['keyPairs' => $keyPairs]);
+        return view('Message.listKeyPairPage', ['keyPairs' => $keyPairs]);
     }
 
     public function decryptPage($keyPairId)
     {
         $keyPair = KeyPair::find($keyPairId);
-        return view('decrypt.decryptPage', ['keyPair' => $keyPair]);
+        return view('Message.decryptPage', ['keyPair' => $keyPair]);
     }
 
     public function decryptAction($keyPairId, Request $request)
     {
         $keyPair = KeyPair::find($keyPairId);
-        // $publicKey = new PublicKey($keyPair->public_key);
-        $privateKey = new PrivateKey($keyPair->private_key);
-        $plainText = EasyRSA::decrypt($request->message, $privateKey);
-
+        $plainText = EasyRSA::decrypt($request->message, new PrivateKey($keyPair->private_key));
         $request->session()->put('plainText', $plainText);
-        return redirect()->route('key_pair/decrypt_page', ['keyPairId' => $keyPairId]);
-
-        // return view('decrypt.decrypt_page', ['plainText' => $plainText, 'keyPair' => $keyPair]);
+        return redirect()->route('contact/decrypt_page', ['keyPairId' => $keyPairId]);
     }
 
-    public function listPublicKeyPage()
+    public function addContactPage()
+    {
+        return view('Message.addContactPage');
+    }
+
+    public function addContactAction(Request $request)
+    {
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->public_key = $request->public_key;
+        $contact->save();
+
+        $request->session()->put('message', 'Contact succesfully saved!');
+
+        return redirect()->route('contact/add_contact_page');
+    }
+
+    public function listContactPage()
     {
         $contacts = Contact::all();
-        return view('encrypt.listPublicKeyPage', ['contacts' => $contacts]);
+        return view('Message.listContactPage', ['contacts' => $contacts]);
+    }
+
+    public function encryptPage($contactId)
+    {
+        $contact = Contact::find($contactId);
+        return view('Message.encryptPage', ['contact' => $contact]);
+    }
+
+    public function encryptAction($contactId, Request $request)
+    {
+        $contact = Contact::find($contactId);
+        $message = EasyRSA::encrypt($request->message, new PublicKey($contact->public_key));
+        $request->session()->put('encryptedText', $message);
+        return redirect()->route('contact/encypt_page', ['contactId' => $contactId]);
     }
 
     public function TEST()

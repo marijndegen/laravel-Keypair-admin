@@ -11,7 +11,7 @@ class Rsacontroller extends Controller
 {
     public function createKeyPairPage()
     {
-        return view('rsa.createKeyPairPage');
+        return view('RSA.createKeyPairPage');
     }
 
     public function createKeyPairAction(Request $request)
@@ -29,33 +29,14 @@ class Rsacontroller extends Controller
         $KeyPairModel->save();
 
         $request->session()->put('message', EasyRSA::encrypt("You have successfully decrypted the message!", $publicKey));
-        return redirect()->route('create_key_pair_page');
+        return redirect()->route('rsa/create_key_pair_page');
     }
 
     public function deleteKey($keyPairId)
     {
         $KeyPair = KeyPair::findOrFail($keyPairId);
         $KeyPair->delete();
-        return redirect()->route('select_key');
-    }
-
-    public function addPublicKeyPage()
-    {
-        return view('rsa.addPublicKeyPage');
-    }
-
-    public function addPublicKeyAction(Request $request)
-    {
-        $contact = new Contact();
-        $contact->name = $request->name;
-        $contact->email = $request->email;
-        $contact->phone = $request->phone;
-        $contact->public_key = $request->public_key;
-        $contact->save();
-
-        $request->session()->put('message', 'Contact succesfully saved!');
-
-        return redirect()->route('public_key/add_public_key_page');
+        return redirect()->route('contact/list_key_pair_page');
     }
 
     public function downloadPrivateKeyFromKeyPair($keyPairId)

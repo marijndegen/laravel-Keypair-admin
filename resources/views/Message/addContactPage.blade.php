@@ -7,7 +7,7 @@
             Add a new contact (with a public key)
         </div>
         <div class="links">
-            <form method="post" action="{{route('public_key/add_public_key_action')}}">
+            <form method="post" action="{{route('contact/add_contact_action')}}">
                 @csrf
                 @if(Session::has('message'))
                 <div class="alert alert-success">

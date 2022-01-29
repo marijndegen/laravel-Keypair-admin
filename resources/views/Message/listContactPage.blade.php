@@ -19,8 +19,8 @@
             <td>{{$contact->id}}</td>
             <td>{{$contact->name}}</td>
             <td>
-                {{--<a class="btn btn-success listedbtn" href={{route('key_pair/decrypt_page', ['key_id' => $keyPair->id])}}> Encrypt</a>
-                <a class="btn btn-danger listedbtn" href={{route('key_pair/delete', ['key_id' => $keyPair->id])}} onclick="return confirm('Are you sure?')"> Delete</a>--}}
+                <a class="btn btn-success listedbtn" href={{route('contact/encypt_page', ['contactid' => $contact->id])}}> Encrypt</a>
+                {{--<a class="btn btn-danger listedbtn" href={{route('rsa/key_pair/delete', ['key_id' => $keyPair->id])}} onclick="return confirm('Are you sure?')"> Delete</a>--}}
                 <a class="btn btn-info listedbtn" href={{route('contact/downloadPublicKey', ['key_id' => $contact->id])}}> Download Public Key</a>
             </td>
             <td>{{$contact->email}}</td>

@@ -8,7 +8,7 @@
         </div>
 
         <div class="links">
-            <form method="post" action="{{route('create_key_pair_action')}}">
+            <form method="post" action="{{route('rsa/create_key_pair_action')}}">
                 @csrf
                 <div class="form-group">
                     <input type="text" class="form-control" name="description" placeholder="Description">

@@ -8,7 +8,7 @@
 </div>
 @endif
 <hr>
-<form method="post" action="/key_pair/decrypt_action/{{$keyPair->id}}">
+<form method="post" action="/contact/decrypt_action/{{$keyPair->id}}">
     @csrf
     <div class="form-group">
         <textarea class="form-control" rows="4" placeholder="Decrypt a single unformatted message from the key:" name="message"></textarea>
