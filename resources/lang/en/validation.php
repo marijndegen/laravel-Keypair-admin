@@ -127,11 +127,7 @@ return [
     |
     */
 
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
+    'publickey' => 'This is not a correct public key',
 
     /*
     |--------------------------------------------------------------------------

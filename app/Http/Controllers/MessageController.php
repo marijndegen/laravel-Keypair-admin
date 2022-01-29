@@ -38,6 +38,12 @@ class MessageController extends Controller
 
     public function addContactAction(Request $request)
     {
+        $request->validate([
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email:rfc,strict,dns,spoof,filter',
+            'public_key' => ['required', new \App\Rules\PublicKey],
+        ]);
+
         $contact = new Contact();
         $contact->name = $request->name;
         $contact->email = $request->email;

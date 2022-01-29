@@ -1,9 +1,10 @@
 # Laravel keypair admin
 
 ### TODO
-2. bij DELETE ACTIONS van get een delete action maken
-
 3. validatie in backend toevoegen.
+- Bij decryption, custom validator maken
+- Copy text button bij encyption maken
+- required|min:5 toevoegen bij encypt action.
 
 4. move encryption and decryption logic to model.
 ```

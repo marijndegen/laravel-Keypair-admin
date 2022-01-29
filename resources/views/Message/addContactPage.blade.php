@@ -16,16 +16,25 @@
                 </div>
                 @endif
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" placeholder="Full name">
+                    @error('name')
+                    <div class="alert alert-danger ">{{ trans($message) }}</div>
+                    @enderror
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Full name">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="email" placeholder="E-mail">
+                    @error('email')
+                    <div class="alert alert-danger ">{{ trans($message) }}</div>
+                    @enderror
+                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="E-mail">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" name="phone" placeholder="Phone number">
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" name="public_key" placeholder="Public key"></textarea>
+                    @error('public_key')
+                    <div class="alert alert-danger ">{{ trans($message) }}</div>
+                    @enderror
+                    <textarea class="form-control @error('public_key') is-invalid @enderror" name="public_key" placeholder="Public key"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Add contact</button>
             </form>
