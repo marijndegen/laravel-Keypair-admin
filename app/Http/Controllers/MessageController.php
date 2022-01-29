@@ -70,11 +70,14 @@ class MessageController extends Controller
         return redirect()->route('contact/encypt_page', ['contactId' => $contactId]);
     }
 
-    public function TEST()
+    public function deleteContact($contactId)
     {
-        $keyPair = KeyPair::find(3);
-        $publicKey = new PublicKey($keyPair->public_key);
-
-        echo EasyRSA::encrypt("Two plus two is four (secret)", $publicKey);
+        try {
+            $contact = Contact::findOrFail($contactId);
+            $contact->delete();
+            return response()->json(['success' => 'success'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => "Invalid, we couldn't find any contact with the ID {$contactId}"], 404);
+        }
     }
 }

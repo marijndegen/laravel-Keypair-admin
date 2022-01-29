@@ -39,7 +39,7 @@ class Rsacontroller extends Controller
             $KeyPair->delete();
             return response()->json(['success' => 'success'], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => "Invalid, we couldn't find any KeyPair with the ID {$keyPairId}"], 404);
+            return response()->json(['error' => "Invalid, we couldn't find any key pair with the ID {$keyPairId}"], 404);
         }
     }
 
