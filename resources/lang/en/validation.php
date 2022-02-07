@@ -127,7 +127,13 @@ return [
     |
     */
 
-    'publickey' => 'This is not a correct public key',
+    'publickey' => 'This is not a correct public key.',
+
+    'encyptedmessage' => 'Could not decrypt the encrypted message.',
+
+    'keypairnotfound' => 'The keypair could not be found.',
+    'privatekey' => 'This is not a correct private key.',
+    'invalidencryptedmessage' => 'The encrypted message is in a wrong format or belongs to a different private key.',
 
     /*
     |--------------------------------------------------------------------------

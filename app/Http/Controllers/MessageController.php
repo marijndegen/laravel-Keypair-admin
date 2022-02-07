@@ -25,6 +25,10 @@ class MessageController extends Controller
 
     public function decryptAction($keyPairId, Request $request)
     {
+        $request->validate([
+            'message' => ['required', new \App\Rules\EncryptedMessage($keyPairId)],
+        ]);
+
         $keyPair = KeyPair::find($keyPairId);
         $message = EasyRSA::decrypt($request->message, new PrivateKey($keyPair->private_key));
         $request->session()->put('message', $message);
@@ -70,6 +74,10 @@ class MessageController extends Controller
 
     public function encryptAction($contactId, Request $request)
     {
+        $request->validate([
+            'message' => 'required|min:5',
+        ]);
+
         $contact = Contact::find($contactId);
         $message = EasyRSA::encrypt($request->message, new PublicKey($contact->public_key));
         $request->session()->put('message', $message);

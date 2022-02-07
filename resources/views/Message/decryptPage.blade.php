@@ -9,7 +9,10 @@
     <form method="post" action="/contact/decrypt_action/{{$keyPair->id}}">
         @csrf
         <div class="form-group">
-            <textarea class="form-control" rows="4" placeholder="Decrypt a single message that is meant only to be decrypted by the key: {{$keyPair->description}}" name="message"></textarea>
+            @error('message')
+            <div class="alert alert-danger ">{{trans('validation.encyptedmessage')}} {{ trans($message) }}</div>
+            @enderror
+            <textarea class="form-control @error('message') is-invalid @enderror" rows="4" placeholder="Decrypt a single message that is meant only to be decrypted by the key: {{$keyPair->description}}" name="message"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
