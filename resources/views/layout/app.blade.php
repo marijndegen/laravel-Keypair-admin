@@ -22,6 +22,7 @@
     </nav>
     @yield('content')
     <script src="/js/fetch_scripts.js"></script>
+    <script src="/js/copy_message.js"></script>
 </body>
 
 </html>

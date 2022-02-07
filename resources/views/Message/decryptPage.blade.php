@@ -1,13 +1,10 @@
-@extends('layout.app')
+@extends('Layout.app')
 
 @section('content')
 <div class="container">
     <h2>Decrypt a message using private key {{$keyPair->description}}</h2>
-    @if(Session::has('plainText'))
-    <div class="alert alert-success">
-        <pre>{{Session::pull('plainText')}}</pre>
-    </div>
-    @endif
+    @include('Elements.messageBox', ['title' => 'Encrypted message:'])
+
     <hr>
     <form method="post" action="/contact/decrypt_action/{{$keyPair->id}}">
         @csrf

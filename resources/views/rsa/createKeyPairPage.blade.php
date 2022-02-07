@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('Layout.app')
 
 @section('content')
 <div class="flex-center position-ref full-height">
@@ -16,36 +16,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Generate key</button>
             </form>
-            @if(Session::has('message'))
-            <div id="messageFrame" class="alert alert-success">
-                <h3>Encrypted message:</h3>
-                <input type="text" class="form-control" value="{{Session::pull('message')}}" id="messageInput">
-                <button class="btn btn-success" onclick="copyText()">Copy message</button>
-            </div>
-            @endif
+            @include('Elements.messageBox', ['title' => 'Encrypted message:'])
         </div>
     </div>
 </div>
-
-<script>
-    let copied = false;
-
-    function copyText() {
-        const copyText = document.getElementById("messageInput");
-        copyText.select();
-        document.execCommand("copy");
-
-        if (!copied) {
-            const textNode = document.createTextNode("Message copied!");
-            const paragraph = document.createElement("p");
-            paragraph.appendChild(textNode);
-
-            const messageFrame = document.getElementById("messageFrame");
-            messageFrame.appendChild(paragraph);
-
-            copied = true;
-        }
-
-    }
-</script>
 @endsection

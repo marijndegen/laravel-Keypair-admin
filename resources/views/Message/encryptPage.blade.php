@@ -3,11 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Encrypt a message for {{$contact->name}}</h2>
-    @if(Session::has('encryptedText'))
-    <div class="alert alert-success">
-        <pre>{{Session::pull('encryptedText')}}</pre>
-    </div>
-    @endif
+    @include('Elements.messageBox', ['title' => 'Encrypted message:'])
     <hr>
     <form method="post" action="/contact/encrypt_action/{{$contact->id}}">
         @csrf

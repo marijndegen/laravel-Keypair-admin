@@ -26,8 +26,8 @@ class MessageController extends Controller
     public function decryptAction($keyPairId, Request $request)
     {
         $keyPair = KeyPair::find($keyPairId);
-        $plainText = EasyRSA::decrypt($request->message, new PrivateKey($keyPair->private_key));
-        $request->session()->put('plainText', $plainText);
+        $message = EasyRSA::decrypt($request->message, new PrivateKey($keyPair->private_key));
+        $request->session()->put('message', $message);
         return redirect()->route('contact/decrypt_page', ['keyPairId' => $keyPairId]);
     }
 
@@ -72,7 +72,7 @@ class MessageController extends Controller
     {
         $contact = Contact::find($contactId);
         $message = EasyRSA::encrypt($request->message, new PublicKey($contact->public_key));
-        $request->session()->put('encryptedText', $message);
+        $request->session()->put('message', $message);
         return redirect()->route('contact/encypt_page', ['contactId' => $contactId]);
     }
 
