@@ -1,27 +1,16 @@
 # Laravel keypair admin
 
-### TODO
-3. validatie in backend toevoegen.
-- Bij decryption, custom validator maken
-- --Copy text button bij encyption maken
-- --required|min:5 toevoegen bij encypt action.
-
-4. move encryption and decryption logic to model.
-```
-        $keyPair = KeyPair::find($keyPairId);
-        $privateKey = new PrivateKey($keyPair->private_key);
-        $plainText = EasyRSA::decrypt($request->message, $privateKey);
-        $request->session()->put('plainText', $plainText);
-        return redirect()->route('contact/decrypt_page', ['keyPairId' => $keyPairId]);
-```
-
-foutafhandeling bij error met encrypten.
-
---1. grote van text veranderen.
+## Installation
+1. Clone repo
+2. composer install
+3. mv / copy .env.example .env
+4. configure .env to your needs
+5. php artisan key:generate
+6. php artisan serve
 
 ## Terms
 ### You have:
-- RSA
+- RSA the general encryption package
 - KeyPair
     - id
     - public_key
