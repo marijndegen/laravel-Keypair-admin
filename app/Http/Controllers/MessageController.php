@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\KeyPair;
 use App\Contact;
-use ParagonIE\EasyRSA\PublicKey;
-use ParagonIE\EasyRSA\PrivateKey;
-use ParagonIE\EasyRSA\EasyRSA;
 
 class MessageController extends Controller
 {
@@ -30,8 +27,7 @@ class MessageController extends Controller
         ]);
 
         $keyPair = KeyPair::find($keyPairId);
-        $message = EasyRSA::decrypt($request->message, new PrivateKey($keyPair->private_key));
-        $request->session()->put('message', $message);
+        $request->session()->put('message', $keyPair->decrypt($request->message));
         return redirect()->route('contact/decrypt_page', ['keyPairId' => $keyPairId]);
     }
 
@@ -45,6 +41,7 @@ class MessageController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email:rfc,strict,dns,spoof,filter',
+            'phone' => 'required|min:5|max:15',
             'public_key' => ['required', new \App\Rules\PublicKey],
         ]);
 
@@ -79,8 +76,7 @@ class MessageController extends Controller
         ]);
 
         $contact = Contact::find($contactId);
-        $message = EasyRSA::encrypt($request->message, new PublicKey($contact->public_key));
-        $request->session()->put('message', $message);
+        $request->session()->put('message', $contact->encrypt($request->message));
         return redirect()->route('contact/encypt_page', ['contactId' => $contactId]);
     }
 

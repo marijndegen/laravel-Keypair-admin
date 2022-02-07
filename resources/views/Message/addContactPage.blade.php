@@ -28,7 +28,10 @@
                     <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="E-mail">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="phone" placeholder="Phone number">
+                    @error('phone')
+                    <div class="alert alert-danger ">{{ trans($message) }}</div>
+                    @enderror
+                    <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="Phone number">
                 </div>
                 <div class="form-group">
                     @error('public_key')
