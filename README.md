@@ -6,7 +6,8 @@
 3. mv / copy .env.example .env
 4. configure .env to your needs
 5. php artisan key:generate
-6. php artisan serve
+6. php artisan migrate
+7. php artisan serve
 
 ## Terms
 ### You have:
