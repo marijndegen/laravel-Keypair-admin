@@ -18,10 +18,10 @@
             <td>{{$keyPair->id}}</td>
             <td>{{$keyPair->description}}</td>
             <td>
-                <a class="btn btn-success listedbtn" href={{route('contact/decrypt_page', ['key_id' => $keyPair->id])}}> Decrypt</a>
+                <a class="btn btn-success listedbtn" href={{route('contact/decrypt_page', $keyPair->id)}}> Decrypt</a>
                 <a id="delete" class="btn btn-danger listedbtn" onclick="confirmDelete('{{$keyPair->id}}', '{{$keyPair->description}}', 'keyPair')"> Delete</a>
-                <a class="btn btn-warning listedbtn" href={{route('rsa/downloadPrivateKey', ['key_id' => $keyPair->id])}}> Download Private Key</a>
-                <a class="btn btn-info listedbtn" href={{route('rsa/downloadPublicKey', ['key_id' => $keyPair->id])}}> Download Public Key</a>
+                <a class="btn btn-warning listedbtn" href={{route('rsa/downloadPrivateKey', $keyPair->id)}}> Download Private Key</a>
+                <a class="btn btn-info listedbtn" href={{route('rsa/downloadPublicKey', $keyPair->id)}}> Download Public Key</a>
             </td>
             <td>{{substr($keyPair->public_key, 0, 200)}}...</td>
             <td>{{substr($keyPair->private_key, 0, 200)}}...</td>
